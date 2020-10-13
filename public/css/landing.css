@@ -1,0 +1,48 @@
+img{
+	width: 100px;
+	float: left;
+	margin: 5%;
+	margin-left: 20%;
+}
+nav{
+	margin-bottom: 5%;
+}
+body{
+	width: 100%;
+	background: rgb(204,204,204);
+}
+table{
+	width: 80%;
+	padding-left: 10%;
+	padding-right: 10%;
+	border-collapse: collapse;
+	margin: 5% auto;
+	background: rgb(204, 199, 201);
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+td{
+	height: 10px;
+	border: 0;
+	box-shadow: 0 10px 10px -10px #8c8c8b inset;
+	font-family: Inria Sans;
+	padding-top: 20px;
+	padding-bottom: 20px; 
+	padding-right: 5%
+}
+h1{
+	font-family: Comic Neue;
+	padding-left: 5px;
+	background: rgb(179,179,179);
+	margin-top: 1px
+}
+h4{
+	font-family: Arial, Helvetica, sans-serif;
+	color: rgb(53, 49, 49);
+	margin-top: 2%
+}
+.right{
+	float: right;
+	margin-right: 20px;
+	margin-top: 8px;
+}
