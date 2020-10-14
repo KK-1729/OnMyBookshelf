@@ -2,14 +2,13 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var passport = require("passport");
+var LocalStategy = require("passport-local");
 var Book = require("./models/book");
 var Comment = require("./models/comment");
-var seedDB = require("./views/seeds");
+var User = require("./models/user")
 
-
-seedDB();
-
-mongoose.connect("mongodb://localhost/on_my_bookshelf", {
+mongoose.connect("mongodb+srv://Karthik:Karthik123@onmybookshelf.57xdn.mongodb.net/OnMyBookshelf?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -20,34 +19,22 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
+// AUTHENTICATION - PASSPORT CONFIGURATION
+app.use(require("express-session")({
+    secret: "The best book blog",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-
-// Book.create(
-//     {
-//         name: "Five on a hike together", 
-//         image: "https://upload.wikimedia.org/wikipedia/en/c/c4/FiveOnAHikeTogether.jpg",
-//         author: "Enid Blyton",
-//         description: " A half-term holiday enables Julian, Dick, Anne, George and Timmy to reunite and make off on a hiking tour. Hoping to make sleeping arrangements at Farmhouses and inns along the way, the children set off, only to have their plans interrupted by Timmy, who foolishly chases a rabbit and injures himself. George insists on him being seen by a Vet, and the children split up, only to be plunged into yet another thrilling adventure. Dick and Anne, when parted from Julian and George, manage to end up at the wrong Farmhouse, at which Dick receives a strange message in the middle of the night, actually intended for a man called 'Dirty Dick': a message which includes some key clues to a mystery..."
-//     },
-//     function(err, book) {
-//         if(err) {
-//             console.log(err);
-//         } else {
-//             console.log("Newly added Book");
-//             console.log(book);
-//         }
-//     }
-// );
-
-var books = [
-    {name: "Five on a hike together", image: "https://upload.wikimedia.org/wikipedia/en/c/c4/FiveOnAHikeTogether.jpg"},
-    {name: "Five go to Smuggler's Top", image: "https://upload.wikimedia.org/wikipedia/en/2/2d/FamousFive4.jpg"},
-    {name: "Five go off to Camp", image: "https://upload.wikimedia.org/wikipedia/en/7/76/FamousFive7.jpg"},
-    {name: "Five on a hike together", image: "https://upload.wikimedia.org/wikipedia/en/c/c4/FiveOnAHikeTogether.jpg"},
-    {name: "Five on a hike together", image: "https://upload.wikimedia.org/wikipedia/en/c/c4/FiveOnAHikeTogether.jpg"},
-    {name: "Five on a hike together", image: "https://upload.wikimedia.org/wikipedia/en/c/c4/FiveOnAHikeTogether.jpg"},
-    {name: "Five on a hike together", image: "https://upload.wikimedia.org/wikipedia/en/c/c4/FiveOnAHikeTogether.jpg"},
-]
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    next()
+});
 
 app.get("/", function(req, res) {
     res.render("landing");
@@ -60,19 +47,23 @@ app.get("/books", function(req, res) {
         if(err) {
             console.log(err);
         } else {
-            res.render("books/books", {books: allBooks});
+            res.render("books/books", {books: allBooks, currentUser: req.user});
         }
     });
 });
 
 // CREATE Route - to add new books to Database
-app.post("/books", function(req, res) {
+app.post("/books", isLoggedIn, function(req, res) {
     // get data from form and add to books array
     var name = req.body.name;
     var image = req.body.image;
     var author = req.body.author;
     var desc = req.body.description;
-    var newBook = {name: name, image: image, author: author, description: desc};
+    var user = {
+        id: req.user._id,
+        username: req.user.username
+    }
+    var newBook = {name: name, image: image, author: author, description: desc, user: user};
     // Add a new book and save it to Database
     Book.create(newBook, function(err, newlyAdded) {
         if(err) {
@@ -85,8 +76,8 @@ app.post("/books", function(req, res) {
 });
 
 // NEW Route - form to add a new book
-app.get("/books/new", function(req, res) {
-    res.render("newbook");
+app.get("/books/new", isLoggedIn, function(req, res) {
+    res.render("books/newbook");
 });
 
 // SHOW Route - to show details of a particular book
@@ -107,7 +98,7 @@ app.get("/books/:id", function(req, res) {
 // COMMENTS ROUTES
 
 // SHOW Route - To show Comment form
-app.get("/books/:id/comments/new", function(req, res) {
+app.get("/books/:id/comments/new", isLoggedIn, function(req, res) {
     // find the book by id
     Book.findById(req.params.id, function(err, book) {
         if(err) {
@@ -119,7 +110,7 @@ app.get("/books/:id/comments/new", function(req, res) {
 });
 
 // POST Route - To add comments
-app.post("/books/:id/comments", function(req, res) {
+app.post("/books/:id/comments", isLoggedIn, function(req, res) {
     // find the book using the id
     Book.findById(req.params.id, function(err, book) {
         if(err) {
@@ -130,6 +121,10 @@ app.post("/books/:id/comments", function(req, res) {
                 if(err) {
                     console.log(err);
                 } else {
+                    // add username and id to comment
+                    comment.user.id = req.user._id;
+                    comment.user.username = req.user.username;
+                    comment.save();
                     book.comments.push(comment);
                     book.save();
                     res.redirect("/books/" + book._id);
@@ -141,6 +136,52 @@ app.post("/books/:id/comments", function(req, res) {
     // connect the new comment to book
     // redirect the book show page
 });
+
+// AUTHENTICATION ROUTES
+// SHOW Route - to show registration form
+app.get("/register", function(req, res) {
+    res.render("register");
+});
+
+// Handling Sign Up Logic
+app.post("/register", function(req, res) {
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, user) {
+        if(err) {
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, function() {
+            res.redirect("/books");
+        });
+    });
+});
+
+// Showing login form 
+app.get("/login", function(req, res) {
+    res.render("login");
+});
+
+// Handling login logic
+app.post("/login", passport.authenticate("local", 
+    {
+        successRedirect: "/books",
+        failureRedirect: "/login"
+    }), function(req, res) {           
+});
+
+// Logout Route
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/books");
+});
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
 
 app.listen(3000, function() {
     console.log("The server has started");
