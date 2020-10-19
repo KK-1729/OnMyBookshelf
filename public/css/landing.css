@@ -1,48 +1,98 @@
-img{
-	width: 100px;
-	float: left;
-	margin: 5%;
-	margin-left: 20%;
-}
-nav{
-	margin-bottom: 5%;
-}
 body{
-	width: 100%;
-	background: rgb(204,204,204);
+	background-color: rgba(250, 250, 250, 0.904);
 }
-table{
-	width: 80%;
-	padding-left: 10%;
-	padding-right: 10%;
-	border-collapse: collapse;
-	margin: 5% auto;
-	background: rgb(204, 199, 201);
-	padding-top: 100px;
-	padding-bottom: 100px;
+/* Navbar */
+.nav-section{
+	background-color: #061629;
+	padding: 20px 40px;
+}
+.nav-section span{
+	color: #ffffff;
+}
+.site-logo{
+	color: #ffffff;
+	font-size: 18px;
+	font-weight: 600;
+	letter-spacing: 7px;
+}
+.site-logo:hover{
+	color: #ffffff;
+	text-decoration: none;	
+    background-color: transparent;
+}
+.nav-right{
+	font-size: 16px;
+	font-weight: 500;
+	padding-left: 950px;
+}
+.nav-right a:hover{
+	color: rgb(13, 212, 179);
+}
+.nav-right ul{
+	list-style: none;
+}
+.nav-right li{
+	margin-right: 10px;
+}
+a{
+	text-decoration: none;
+	color: #ffffff;
+}
+a:hover{
+	text-decoration: none;
+	color: #ffffff;
+}
+.nav-right a{
+	text-decoration: none;
+	color: #ffffff;
+}
+
+/* Available Books */
+.avbooks{
+	text-align: center;
+	margin-left: 150px;
+	margin-right: 150px;
+	margin-top: 200px;
 }
 td{
-	height: 10px;
-	border: 0;
-	box-shadow: 0 10px 10px -10px #8c8c8b inset;
-	font-family: Inria Sans;
+	padding-bottom: 100px; 
+}
+.avbooks .info{
+	padding-left: 70px;
+	font-size: 20px;
+	font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.avbooks img{
+	width: 350px;
+}
+.avbooks h4{
+	width: 75%;
+	margin: auto;
+	font-size: 50px;
+	font-family: 'Alegreya', serif;
+}
+.author{
 	padding-top: 20px;
-	padding-bottom: 20px; 
-	padding-right: 5%
-}
-h1{
-	font-family: Comic Neue;
-	padding-left: 5px;
-	background: rgb(179,179,179);
-	margin-top: 1px
-}
-h4{
+	text-transform: uppercase;
 	font-family: Arial, Helvetica, sans-serif;
-	color: rgb(53, 49, 49);
-	margin-top: 2%
+	font-size: 24px;
+	font-weight: 900;
 }
-.right{
-	float: right;
-	margin-right: 20px;
-	margin-top: 8px;
+.author p{
+	font-size: 18px;
+	font-weight: 700;
+
+}
+.redirect{
+	text-align: center;
+	margin-bottom: 30px;
+}
+.redirect a{
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    color: #666666;
+}
+.redirect a:hover{
+	text-decoration: none;
+    color: rgb(25, 173, 149);
 }
