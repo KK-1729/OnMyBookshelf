@@ -1,77 +1,197 @@
-.nav-section{
-	background-color: #061629;
-	padding: 20px 40px;
-}
-.bars i{
-	font-size: 25px;
-}
-.bars i:hover{
-	color: rgb(13, 212, 179);
-}
-.site-logo{
-	color: #ffffff;
-	font-size: 18px;
-	font-weight: 600;
-	letter-spacing: 7px;
-}
-.site-logo:hover{
-	color: #ffffff;
-	text-decoration: none;	
+.nav-section {
+    background-color: #061629;
+    padding: 20px 40px;
+  }
+
+  .bars i {
+    font-size: 25px;
+  }
+
+  .bars i:hover {
+    color: rgb(13, 212, 179);
+  }
+
+  .site-logo {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 7px;
+  }
+
+  .site-logo:hover {
+    color: #ffffff;
+    text-decoration: none;
     background-color: transparent;
-}
-.nav-right{
-	font-size: 16px;
-	font-weight: 500;
-	align-items: center;
-}
-.nav-right a:hover{
-	color: rgb(13, 212, 179);
-}
-.nav-right ul{
-	list-style: none;
-}
-.nav-right li{
-	margin-right: 20px;
-}
-a{
-	text-decoration: none;
-	color: #ffffff;
-}
-a:hover{
-	text-decoration: none;
-	color: #ffffff;
-}
-button{
-	color: #ffffff;
-}
-button:focus{
-	outline: none;
-}
-.profile button{
-	outline: none;
-	border: none;
-	background-color: #061629;
-	color: #ffffff;
-	text-align: center;
-	font-size: 16px;
-	font-weight: 500;
-	padding: 8px 5px;
-}
-.profile .btn:hover{
-	color: rgb(13, 212, 179);
-}
-.dropdown-menu{
-	background-color: #061629;
-	text-align: center;
-}
-.add{
-	text-align: center;
-	width: 120px;
-	background-color: rgb(13, 212, 179);
-	border-radius: 25px;
-}
-.add a:hover{
-	color: #ffffff;
-	background-color: rgb(48, 184, 161);
-	border-radius: 25px;
-}
+  }
+
+  .nav-right {
+    font-size: 16px;
+    font-weight: 500;
+    align-items: center;
+  }
+
+  .nav-right a:hover {
+    color: rgb(13, 212, 179);
+  }
+
+  .nav-right ul {
+    list-style: none;
+  }
+
+  .nav-right li {
+    margin-right: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #ffffff;
+  }
+
+  button {
+    color: #ffffff;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  .profile button {
+    outline: none;
+    border: none;
+    background-color: #061629;
+    color: #ffffff;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 5px;
+  }
+
+  .profile .btn:hover {
+    color: rgb(13, 212, 179);
+  }
+
+  .dropdown-menu {
+    background-color: #061629;
+    text-align: center;
+  }
+
+  .add {
+    text-align: center;
+    width: 120px;
+    background-color: rgb(13, 212, 179);
+    border-radius: 25px;
+  }
+
+  .add a:hover {
+    color: #ffffff;
+    background-color: rgb(48, 184, 161);
+    border-radius: 25px;
+  }
+
+  body {
+    background-color: rgb(203, 231, 225);
+  }
+
+  .addbook {
+    margin-top: 100px;
+    text-align: center;
+  }
+
+  .book-info {
+    margin-top: 100px;
+  }
+
+  .row {
+    margin-bottom: 25px;
+  }
+
+  .book-info img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .book-name {
+    font-size: 3.5vw;
+    font-family: 'Alegreya', serif;
+    text-transform: capitalize;
+  }
+
+  .author {
+    font-size: 1.5vw;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+
+  .desc {
+    padding-top: 10px;
+    font-size: 1.3vw;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    text-align: justify;
+  }
+
+  .comment-tab {
+    padding: 25px 0;
+    background-color: rgb(241, 233, 233);
+    border-radius: 10px;
+  }
+
+  .comment-tab img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .user {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: rgb(128, 34, 34);
+    letter-spacing: 2px;
+  }
+
+  .comment {
+    text-align: justify;
+  }
+
+  .btn-success {
+    text-align: center;
+    width: 150px;
+    border: none;
+    font-weight: 600;
+    background-color: rgb(14, 197, 167);
+    border-radius: 25px;
+  }
+  .btn-secondary{
+    width: 90px;
+    border-radius: 25px;
+  }
+  .btn-success:hover {
+    background-color: rgb(46, 165, 145);
+  }
+
+  .btn-success:focus {
+    background-color: rgb(46, 165, 145);
+  }
+  .modal-title{
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .modal-body{
+    margin: 10px auto;
+  }
+  .modal-body input{
+    width: 450px;
+    outline: none;
+    padding: 7px 10px;
+    border: none;
+    border-bottom: 1px solid rgb(206, 203, 203);
+  }
+  .modal-footer{
+    border-top: none;
+  }

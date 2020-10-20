@@ -1,35 +1,3 @@
-/* .nav-section{
-	background-color: #061629;
-	padding: 20px 40px;
-}
-.nav-section span{
-	color: #ffffff;
-}
-.site-logo{
-	color: #ffffff;
-	font-size: 18px;
-	font-weight: 600;
-	letter-spacing: 7px;
-}
-.site-logo:hover{
-	color: #ffffff;
-	text-decoration: none;	
-    background-color: transparent;
-}
-.nav-right{
-	font-size: 16px;
-	font-weight: 500;
-	padding-left: 950px;
-}
-.nav-right a:hover{
-	color: rgb(13, 212, 179);
-}
-.nav-right ul{
-	list-style: none;
-}
-.nav-right li{
-	padding-right: 10px;
-} */
 a{
 	text-decoration: none;
 	color: #ffffff;

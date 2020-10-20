@@ -103,19 +103,114 @@
       border-radius: 25px;
     }
 
+    body {
+      background-color: rgb(203, 231, 225);
+    }
+
     .addbook {
       margin-top: 100px;
       text-align: center;
     }
-    .book-info{
+
+    .book-info {
       margin-top: 100px;
+    }
+
+    .row {
+      margin-bottom: 25px;
+    }
+
+    .book-info img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .book-name {
+      font-size: 3.5vw;
+      font-family: 'Alegreya', serif;
+      text-transform: capitalize;
+    }
+
+    .author {
+      font-size: 1.5vw;
+      text-transform: uppercase;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .desc {
+      padding-top: 10px;
+      font-size: 1.3vw;
+      font-family: 'Barlow Semi Condensed', sans-serif;
+      text-align: justify;
+    }
+
+    .comment-tab {
+      padding: 25px 0;
+      background-color: rgb(241, 233, 233);
+      border-radius: 10px;
+    }
+
+    .comment-tab img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .user {
+      text-transform: uppercase;
+      font-weight: 700;
+      color: rgb(128, 34, 34);
+      letter-spacing: 2px;
+    }
+
+    .comment {
+      text-align: justify;
+    }
+
+    .btn-success {
+      text-align: center;
+      width: 150px;
+      border: none;
+      font-weight: 600;
+      background-color: rgb(14, 197, 167);
+      border-radius: 25px;
+    }
+    .btn-secondary{
+      width: 90px;
+      border-radius: 25px;
+    }
+    .btn-success:hover {
+      background-color: rgb(46, 165, 145);
+    }
+
+    .btn-success:focus {
+      background-color: rgb(46, 165, 145);
+    }
+    .modal-title{
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .modal-body{
+      margin: 10px auto;
+    }
+    .modal-body input{
+      width: 450px;
+      outline: none;
+      padding: 7px 10px;
+      border: none;
+      border-bottom: 1px solid rgb(206, 203, 203);
+    }
+    .modal-footer{
+      border-top: none;
     }
   </style>
 </head>
 
 <body>
   <nav class="nav-section navbar navbar-expand-lg fixed-top">
-    <a class="site-logo navbar-brand" href="#">ONMYBOOKSHELF</a>
+    <a class="site-logo navbar-brand" href="/books">ONMYBOOKSHELF</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
       data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
       aria-label="Toggle navigation">
@@ -156,22 +251,61 @@
   </nav>
   <div class="container">
     <div class="book-info">
-      <h1><%= book.name %></h1>
-
-      <img src="<%= book.image %>">
-
-      <h3>Author - <%= book.author %></h3>
-
-      <p><%= book.description %></p>
-
+      <div class="row">
+        <div class="col-sm-6 col-md-3 col-lg-3">
+          <img src="<%= book.image %>">
+        </div>
+        <div class="col-sm-6 col-md-8 col-lg-8">
+          <div class="book-name">
+            <%= book.name %>
+          </div>
+          <div class="author">
+            Author - <%= book.author %>
+          </div>
+          <div class="desc">
+            <%= book.description %>
+          </div>
+        </div>
+      </div>
       <p>
-        <a href="/books/<%= book._id %>/comments/new" class="btn btn-success">Add New Comment</a>
-      </p>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop">
+          Add Comment
+        </button>
 
+      <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Add Comment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action="/books/<%= book._id %>/comments" method="POST">
+              <div class="modal-body">
+                <input type="text" name="comment[text]" placeholder="Add a public comment">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+                <button class="btn btn-success">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      </p>
       <% book.comments.forEach(function(comment) { %>
-      <p>
-        <strong><%= comment.user.username %></strong> - <%= comment.text %> - <%= moment(comment.createdAt).fromNow() %>
-      </p>
+      <div class="row comment-tab">
+        <div class="col-sm-1 col-md-1 col-lg-1">
+          <!-- enter image here -->
+        </div>
+        <div class="col-sm-11 col-md-11 col-lg-11">
+          <div class="user"><%= comment.user.username %></div>
+          <div class="comment"><%= comment.text %></div>
+          <div class="time"><%= moment(comment.createdAt).fromNow() %></div>
+        </div>
+      </div>
       <% }) %>
     </div>
   </div>

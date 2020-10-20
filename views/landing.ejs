@@ -13,7 +13,7 @@
 
 <body>
 	<nav class="nav-section navbar navbar-expand-lg fixed-top">
-		<a class="site-logo navbar-brand" href="#">ONMYBOOKSHELF</a>
+		<a class="site-logo navbar-brand" href="/">ONMYBOOKSHELF</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
 			aria-label="Toggle navigation">
@@ -130,7 +130,6 @@
 				for (var i = 0; i < myBooks.length; i++) {
 
 					tr = table.insertRow(-1);
-					// tr.className = "card mb-3 row no-gutters col-md-4";
 					var tabCell = tr.insertCell(-1);
 					tabCell.innerHTML = "<img src = " + myBooks[i][col[1]] + ">";
 					var tabCell = tr.insertCell(-1);
