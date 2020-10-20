@@ -48,7 +48,7 @@ app.get("/books", function(req, res) {
         if(err) {
             console.log(err);
         } else {
-            res.render("books/books", {books: allBooks, currentUser: req.user});
+            res.render("books", {books: allBooks, currentUser: req.user});
         }
     });
 });
@@ -78,7 +78,7 @@ app.post("/books", isLoggedIn, function(req, res) {
 
 // NEW Route - form to add a new book
 app.get("/books/new", isLoggedIn, function(req, res) {
-    res.render("books/newbook");
+    res.render("newbook");
 });
 
 // SHOW Route - to show details of a particular book
@@ -90,25 +90,13 @@ app.get("/books/:id", function(req, res) {
         } else {
             console.log(foundBook);
             // Show the template consisting of details for that particular book
-            res.render("books/show", {book: foundBook});
+            res.render("show", {book: foundBook});
         }
     });
 });
 
 
 // COMMENTS ROUTES
-
-// SHOW Route - To show Comment form
-app.get("/books/:id/comments/new", isLoggedIn, function(req, res) {
-    // find the book by id
-    Book.findById(req.params.id, function(err, book) {
-        if(err) {
-            console.log(err);
-        } else {
-            res.render("comments/new", {book: book});
-        }
-    });
-});
 
 // POST Route - To add comments
 app.post("/books/:id/comments", isLoggedIn, function(req, res) {

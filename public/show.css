@@ -157,6 +157,9 @@
   .comment {
     text-align: justify;
   }
+  .time {
+    color: rgb(89, 89, 89)
+  }
 
   .btn-success {
     text-align: center;

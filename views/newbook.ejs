@@ -6,17 +6,12 @@
 	<link
 		href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@800;900&family=Alegreya:ital,wght@1,800&display=swap"
 		rel="stylesheet">
-	<link rel="stylesheet" href="css/books.css">
+	<link rel="stylesheet" href="/newbook.css">
 </head>
 
 <body>
 	<nav class="nav-section navbar navbar-expand-lg fixed-top">
-		<!-- <a class="site-logo navbar-brand" href="/books">ONMYBOOKSHELF</a> -->
-		<% if(!currentUser) { %>
-            <a class="site-logo navbar-brand" href="/">ONMYBOOKSHELF</a>
-        <% } else { %>
-            <a class="site-logo navbar-brand" href="/books">ONMYBOOKSHELF</a>
-        <% } %>
+		<a class="site-logo navbar-brand" href="/books">ONMYBOOKSHELF</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
 			aria-label="Toggle navigation">
@@ -31,6 +26,7 @@
 				<% if(!currentUser) { %>
 				<li class="nav-item"><a class="nav-link" href="/login">LOGIN <span class="sr-only">(current)</span></a>
 				</li>
+				<li class="nav-item"><span>|</span></li>
 				<li class="nav-item"><a class="nav-link" href="/register">SIGNUP <span
 							class="sr-only">(current)</span></a></li>
 				<% } else { %>
@@ -55,22 +51,32 @@
 			</ul>
 		</div>
 	</nav>
-	<div class="avbooks">
+	<div class="addbook">
 		<div class="container">
-			<div class="row">
-				<% books.forEach(function(book) { %>
-				<div class="books col-lg-3 col-md-4 col-sm-6">
-					<div class="thumbnail">
-						<img src="<%= book.image %>">
+			<div class="page-title">Add a New book</div>
+			<div class="add-form">
+				<form action="/books" method="POST">
+					<div class="form-field">
+						<label for="name">Name of the book : </label>
+						<input type="text" name="name">
 					</div>
-					<div class="caption">
-						<h3><%= book.name %></h3>
+					<div class="form-field">
+						<label for="name">Cover Page URL : </label>
+						<input type="text" name="image" placeholde>
 					</div>
-					<div class="info">
-						<a href="/books/<%= book._id %>">More Info</a>
+					<div class="form-field">
+						<label for="name">Author : </label>
+						<input type="text" name="author">
 					</div>
-				</div>
-				<% }); %>
+					<div class="form-field">
+						<label for="name">Book Description : </label>
+						<textarea name="description"></textarea>
+					</div>
+					<button>Submit</button>
+					<span class="back-btn">
+						<a href="/books"><i class="fa fa-long-arrow-left"></i> Back</a>
+					</span>
+				</form>
 			</div>
 		</div>
 	</div>
