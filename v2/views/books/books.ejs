@@ -1,0 +1,87 @@
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@800;900&family=Alegreya:ital,wght@1,800&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="css/books.css">
+</head>
+
+<body>
+	<nav class="nav-section navbar navbar-expand-lg fixed-top">
+		<% if(!currentUser) { %>
+			<a class="site-logo navbar-brand" href="/">ONMYBOOKSHELF</a>
+		<% } else { %>
+			<a class="site-logo navbar-brand" href="/books">ONMYBOOKSHELF</a>
+		<% } %>
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="bars"><i class="fa fa-bars"></i></span>
+		</button>
+
+		<div class="nav-right collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item add">
+					<a class="nav-link" href="/books/new">Add book</a>
+				</li>
+				<% if(!currentUser) { %>
+				<li class="nav-item"><a class="nav-link" href="/login">LOGIN <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="/register">SIGNUP <span
+							class="sr-only">(current)</span></a></li>
+				<% } else { %>
+				<li class="nav-item">
+					<div class="btn-group profile">
+						<button type="button">
+							<i class="fa fa-user"></i> Profile</button>
+						<button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<div class="dropdown-menu">
+							<a class="nav-link" class="dropdown-item" href="#"><%= currentUser.username %> <span
+									class="sr-only">(current)</span></a>
+							<div class="dropdown-divider"></div>
+							<a class="nav-link" class="dropdown-item" href="/logout">Logout <i
+									class="fa fa-sign-out"></i><span class="sr-only">(current)</span></a>
+						</div>
+					</div>
+				</li>
+				<% } %>
+			</ul>
+		</div>
+	</nav>
+	<div class="avbooks">
+		<div class="container">
+			<div class="row">
+				<% books.forEach(function(book) { %>
+				<div class="books col-lg-3 col-md-4 col-sm-6">
+					<div class="thumbnail">
+						<img src="<%= book.image %>">
+					</div>
+					<div class="caption">
+						<h3><%= book.name %></h3>
+					</div>
+					<div class="info">
+						<a href="/books/<%= book._id %>">More Info</a>
+					</div>
+				</div>
+				<% }); %>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+</body>
