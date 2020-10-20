@@ -1,51 +1,192 @@
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/show.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@800;900&family=Alegreya:ital,wght@1,800&display=swap"
+    rel="stylesheet">
+  <!-- <link rel="stylesheet" href="css/show.css"> -->
+  <style>
+    .nav-section {
+      background-color: #061629;
+      padding: 20px 40px;
+    }
+
+    .bars i {
+      font-size: 25px;
+    }
+
+    .bars i:hover {
+      color: rgb(13, 212, 179);
+    }
+
+    .site-logo {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 7px;
+    }
+
+    .site-logo:hover {
+      color: #ffffff;
+      text-decoration: none;
+      background-color: transparent;
+    }
+
+    .nav-right {
+      font-size: 16px;
+      font-weight: 500;
+      align-items: center;
+    }
+
+    .nav-right a:hover {
+      color: rgb(13, 212, 179);
+    }
+
+    .nav-right ul {
+      list-style: none;
+    }
+
+    .nav-right li {
+      margin-right: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    a:hover {
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    button {
+      color: #ffffff;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    .profile button {
+      outline: none;
+      border: none;
+      background-color: #061629;
+      color: #ffffff;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 5px;
+    }
+
+    .profile .btn:hover {
+      color: rgb(13, 212, 179);
+    }
+
+    .dropdown-menu {
+      background-color: #061629;
+      text-align: center;
+    }
+
+    .add {
+      text-align: center;
+      width: 120px;
+      background-color: rgb(13, 212, 179);
+      border-radius: 25px;
+    }
+
+    .add a:hover {
+      color: #ffffff;
+      background-color: rgb(48, 184, 161);
+      border-radius: 25px;
+    }
+
+    .addbook {
+      margin-top: 100px;
+      text-align: center;
+    }
+    .book-info{
+      margin-top: 100px;
+    }
+  </style>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">OnMyBookshelf</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<body>
+  <nav class="nav-section navbar navbar-expand-lg fixed-top">
+    <a class="site-logo navbar-brand" href="#">ONMYBOOKSHELF</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="bars"><i class="fa fa-bars"></i></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <% if(!currentUser) { %>
-        <li class="nav-item active">
-          <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+    <div class="nav-right collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item add">
+          <a class="nav-link" href="/books/new">Add book</a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/register">SignUp <span class="sr-only">(current)</span></a>
+        <% if(!currentUser) { %>
+        <li class="nav-item"><a class="nav-link" href="/login">LOGIN <span class="sr-only">(current)</span></a>
         </li>
-      <% } else { %> 
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Signed In As <%= currentUser.username %> <span class="sr-only">(current)</span></a>
+        <li class="nav-item"><span> | </span></li>
+        <li class="nav-item"><a class="nav-link" href="/register">SIGNUP <span class="sr-only">(current)</span></a></li>
+        <% } else { %>
+        <li class="nav-item">
+          <div class="btn-group profile">
+            <button type="button">
+              <i class="fa fa-user"></i> Profile</button>
+            <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu">
+              <a class="nav-link" class="dropdown-item" href="#"><%= currentUser.username %> <span
+                  class="sr-only">(current)</span></a>
+              <div class="dropdown-divider"></div>
+              <a class="nav-link" class="dropdown-item" href="/logout">Logout <i class="fa fa-sign-out"></i><span
+                  class="sr-only">(current)</span></a>
+            </div>
+          </div>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/logout">Logout <span class="sr-only">(current)</span></a>
-        </li>
-      <% } %>
-    </ul>
-  </div>
-</nav>
+        <% } %>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="book-info">
+      <h1><%= book.name %></h1>
 
+      <img src="<%= book.image %>">
 
+      <h3>Author - <%= book.author %></h3>
 
-<h1><%= book.name %></h1>
+      <p><%= book.description %></p>
 
-<img src="<%= book.image %>">
+      <p>
+        <a href="/books/<%= book._id %>/comments/new" class="btn btn-success">Add New Comment</a>
+      </p>
 
-<h3>Author - <%= book.author %></h3>
-
-<p><%= book.description %></p>
-
-<p>
-    <a href="/books/<%= book._id %>/comments/new" class="btn btn-success">Add New Comment</a>
-</p>
-
-<% book.comments.forEach(function(comment) { %>
-    <p>
+      <% book.comments.forEach(function(comment) { %>
+      <p>
         <strong><%= comment.user.username %></strong> - <%= comment.text %>
-    </p>
-<% }) %>
+      </p>
+      <% }) %>
+    </div>
+  </div>
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+</body>
