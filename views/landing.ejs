@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>BOOK BLOG</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/landing.css">
+</head>
+
+<body>
+	<nav class="nav-section navbar navbar-expand-lg fixed-top">
+		<a class="site-logo navbar-brand" href="#">ONMYBOOKSHELF</a>
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="bars"><i class="fa fa-bars"></i></span>
+		</button>
+
+		<div class="nav-right collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto">
+				<% if(!currentUser) { %>
+				<li class="nav-item"><a class="nav-link" href="/login">LOGIN <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="/register">SIGNUP <span
+							class="sr-only">(current)</span></a></li>
+				<% } else { %>
+				<li class="nav-item">
+					<div class="btn-group profile">
+						<button type="button">
+							<i class="fa fa-user"></i> Profile</button>
+						<button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<div class="dropdown-menu">
+							<a class="nav-link" class="dropdown-item" href="#"><%= currentUser.username %> <span
+									class="sr-only">(current)</span></a>
+							<div class="dropdown-divider"></div>
+							<a class="nav-link" class="dropdown-item" href="/logout">Logout <i
+									class="fa fa-sign-out"></i><span class="sr-only">(current)</span></a>
+						</div>
+					</div>
+				</li>
+				<% } %>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="avbooks">
+		<p id='showData'></p>
+		<script>
+			function add() {
+				var myBooks = [
+					{
+						"Book": "The Adventures of Sherlock Holmes",
+						"Url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Adventures_of_sherlock_holmes.jpg/330px-Adventures_of_sherlock_holmes.jpg",
+						"Author": "Sir Arthur Conan Doyle",
+						"Summary": "All of the stories within The Adventures of Sherlock Holmes are told in a first-person narrative from the point of view of Dr. Watson, as is the case for all but four of the Sherlock Holmes stories. The Adventures of Sherlock Holmes contains many of Doyle's favourite Sherlock Holmes stories. Among those he listedas his twelve favourites were The Adventure of the Speckled Band (as his favourite), The Red-Headed League (second), A Scandal in Bohemia (fifth) and The Five Orange Pips (seventh)."
+					},
+					{
+						"Book": "Murder on the Orient Express",
+						"Url": "https://images-na.ssl-images-amazon.com/images/I/51UA4cTPAhL._SX321_BO1,204,203,200_.jpg",
+						"Author": "Agatha Christie",
+						"Summary": "Murder on the Orient Express is undoubtedly one of Agatha Christie's greatest mystery novels. Just after midnight, a snowdrift stops the Orient Express in its tracks. The luxurious train is surprisingly full for the time of the year, but by the morning it is one passenger fewer. An American tycoon lies dead in his compartment, stabbed a dozen times, his door locked from the inside. Isolated and with a killer in their midst, detective Hercule Poirot must identify the murderer – in case he or she decides to strike again."
+					},
+					{
+						"Book": "The ABC Murders",
+						"Url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Agatha_Christie_The_A.B.C._Murders_first_edition_cover_1936.jpg",
+						"Author": "Agatha Christie",
+						"Summary": "Hercule Poirot is an acclaimed detective, originally from France, but currently retired from Scotland Yard in England. He and his friend Captain Hastings yearn for more mystery in their retired lives when, suddenly, Poirot receives a letter from an unknown source. It details a murder of someone unknown that will take place in Andover. Signed by ABC, this murder actually does happen to a Mrs. Ascher, a small shop owner. Poirot and Hastings look into the murder, but the only strange thing is the ABC railway guide that was left face down on the counter."
+					},
+					{
+						"Book": "Harry Potter and the Philosopher's Stone",
+						"Url": "https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg",
+						"Author": "J.K. Rowling",
+						"Summary": "It is a story about Harry Potter, an orphan brought up by his aunt and uncle because his parents were killed when he was a baby. Harry is unloved by his uncle and aunt but everything changes when he is invited to join Hogwarts School of Witchcraft and Wizardry and he finds out he's a wizard."
+					},
+					{
+						"Book": "Harry Potter and the Chamber of Secrets",
+						"Url": "https://upload.wikimedia.org/wikipedia/en/5/5c/Harry_Potter_and_the_Chamber_of_Secrets.jpg",
+						"Author": "J.K. Rowling",
+						"Summary": "The second instalment of boy wizard Harry Potter's adventures at Hogwarts School of Witchcraft and Wizardry, based on the novel by JK Rowling. A mysterious elf tells Harry to expect trouble during his second year at Hogwarts, but nothing can prepare him for trees that fight back, flying cars, spiders that talk and deadly warnings written in blood on the walls of the school."
+					},
+					{
+						"Book": "Harry Potter and the Prisoner of Azkaban",
+						"Url": "https://upload.wikimedia.org/wikipedia/en/a/a0/Harry_Potter_and_the_Prisoner_of_Azkaban.jpg",
+						"Author": "J.K. Rowling",
+						"Summary": "Harry Potter and the Prisoner of Azkaban is a fantasy novel written by British author J.K. Rowling and is the third novel in the Harry Potter series. The book follows Harry Potter, a young wizard, in his third year at Hogwarts School of Witchcraft and Wizardry. Along with friends Ronald Weasley and Hermione Granger, Harry investigates Sirius Black, an escaped prisoner from Azkaban, the wizard prison, believed to be one of Lord Voldemort's old allies."
+					},
+					{
+						"Book": "Harry Potter and the Goblet of Fire",
+						"Url": "https://upload.wikimedia.org/wikipedia/en/b/b6/Harry_Potter_and_the_Goblet_of_Fire_cover.png",
+						"Author": "J.K. Rowling",
+						"Summary": "Harry Potter and the Goblet of Fire is a fantasy book written by British author J. K. Rowling and the fourth novel in the Harry Potter series. It follows Harry Potter, a wizard in his fourth year at Hogwarts School of Witchcraft and Wizardry, and the mystery surrounding the entry of Harry's name into the Triwizard Tournament, in which he is forced to compete."
+					},
+					{
+						"Book": "Harry Potter and the Order of Phoenix",
+						"Url": "https://upload.wikimedia.org/wikipedia/en/7/70/Harry_Potter_and_the_Order_of_the_Phoenix.jpg",
+						"Author": "J.K. Rowling",
+						"Summary": "Harry Potter and the Order of the Phoenix is a fantasy novel written by British author J. K. Rowling and the fifth novel in the Harry Potter series. It follows Harry Potter's struggles through his fifth year at Hogwarts School of Witchcraft and Wizardry, including the surreptitious return of the antagonist Lord Voldemort, O.W.L. exams, and an obstructive Ministry of Magic.  It is the longest book of the series."
+					},
+					{
+						"Book": "Harry Potter and the Half Blood Prince",
+						"Url": "https://upload.wikimedia.org/wikipedia/en/b/b5/Harry_Potter_and_the_Half-Blood_Prince_cover.png",
+						"Author": "J.K. Rowling",
+						"Summary": "Harry Potter and the Half-Blood Prince is a fantasy novel written by British author J.K. Rowling and the sixth and penultimate novel in the Harry Potter series. Set during Harry Potter's sixth year at Hogwarts, the novel explores the past of Harry's nemesis, Lord Voldemort, and Harry's preparations for the final battle against Voldemort alongside his headmaster and mentor Albus Dumbledore."
+					},
+					{
+						"Book": "Harry Potter and the Deathly Hallows",
+						"Url": "https://upload.wikimedia.org/wikipedia/en/a/a9/Harry_Potter_and_the_Deathly_Hallows.jpg",
+						"Author": "J.K. Rowling",
+						"Summary": "Harry Potter and the Deathly Hallows is a fantasy novel written by British author J. K. Rowling and the seventh and final novel of the Harry Potter series. The novel chronicles the events directly following Harry Potter and the Half-Blood Prince (2005) and the final confrontation between the wizards Harry Potter and Lord Voldemort. Deathly Hallows shattered sales records upon release, surpassing marks set by previous titles of the Harry Potter series."
+					}
+				]
+
+				var col = [];
+				for (var i = 0; i < myBooks.length; i++) {
+					for (var key in myBooks[i]) {
+						if (col.indexOf(key) === -1) {
+							col.push(key);
+						}
+					}
+				}
+
+				var table = document.createElement("table");
+				for (var i = 0; i < myBooks.length; i++) {
+
+					tr = table.insertRow(-1);
+					// tr.className = "card mb-3 row no-gutters col-md-4";
+					var tabCell = tr.insertCell(-1);
+					tabCell.innerHTML = "<img src = " + myBooks[i][col[1]] + ">";
+					var tabCell = tr.insertCell(-1);
+					tabCell.innerHTML = "<div class='info'><h4>" + myBooks[i][col[0]] + "</h4><br>" + myBooks[i][col[3]] + "<br><div class='author'>" + myBooks[i][col[2]] + "<p>AUTHOR</p></div></div>";
+				}
+				var divShowData = document.getElementById('showData');
+				divShowData.innerHTML = "";
+				divShowData.appendChild(table);
+			}
+			add();
+		</script>
+		<div class="redirect">
+			<a href="/login">Please Login To Continue <i class="fa fa-long-arrow-right"></i></a>
+		</div>
+	</div>
+
+
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
